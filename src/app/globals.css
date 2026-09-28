@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-newsreader), Georgia, "Times New Roman", serif;
+
+  /* surfaces */
+  --color-paper: #f6f5f1;
+  --color-card: #fffefd;
+  --color-well: #efede7;
+
+  /* ink */
+  --color-ink: #1c1b17;
+  --color-ink-2: #57534b;
+  --color-ink-3: #8a857b;
+  --color-ink-4: #b5b0a5;
+
+  /* lines */
+  --color-line: #e7e4dc;
+  --color-line-2: #d9d5cb;
+
+  /* semantics — one accent, three states */
+  --color-fresh: #0e7c66;
+  --color-fresh-soft: #e2efeb;
+  --color-soon: #b97a07;
+  --color-soon-soft: #f6ecd9;
+  --color-over: #c14e33;
+  --color-over-soft: #f7e5df;
+
+  --shadow-card: 0 1px 2px rgba(28, 27, 23, 0.04), 0 4px 12px -4px rgba(28, 27, 23, 0.06);
+  --shadow-lift: 0 2px 4px rgba(28, 27, 23, 0.05), 0 12px 28px -8px rgba(28, 27, 23, 0.12);
+  --shadow-pop: 0 8px 40px -8px rgba(28, 27, 23, 0.22), 0 2px 8px rgba(28, 27, 23, 0.08);
+
+  --animate-fade-up: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shimmer {
+    from { background-position: -200px 0; }
+    to { background-position: 200px 0; }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* subtle paper grain */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-fresh) 18%, transparent);
+}
+
+/* keyboard focus */
+:where(button, a, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-fresh);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* tabular numerals for anything data-ish */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--color-well) 25%, #f7f6f2 50%, var(--color-well) 75%);
+  background-size: 400px 100%;
+  animation: var(--animate-shimmer);
+}
